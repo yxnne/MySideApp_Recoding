@@ -11,7 +11,7 @@ public class Const {
     public static final String LOGIN_STATUS = "login_status";
 
     //登录结果有三种情况,定义状态码
-    /*登录相关的业务常量*/
+    /*登录相关的业务常量 01*/
     //登录成功
     public static final int STATUS_LOGIN_OK = 0x01001;
     //登录失败
@@ -20,6 +20,11 @@ public class Const {
     public static final int STATUS_CONNECT_FAILURE = 0x01003;
     //已经登录，或未退出
     public static final int STATUS_ALREADY_LOGGIN = 0x01004;
+    /*网络相关常量02*/
+    //网络状态
+    public static final int TYPE_NETWORK_NONE = 0x02001;
+    public static final int TYPE_NETWORK_WIFI = 0x02002;
+    public static final int TYPE_NETWORK_MOBILE = 0x02003;
 
 
 }

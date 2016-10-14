@@ -10,12 +10,19 @@ import java.io.Serializable;
 public class UserEntity implements Serializable {
     private String username;
     private String password;
+    private String nickName;
 
     public UserEntity(String username, String password) {
         super();
         this.username = username;
         this.password = password;
     }
+
+    public UserEntity(String username, String password, String nickName) {
+        this(username,password);
+        this.nickName = nickName;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -28,6 +35,7 @@ public class UserEntity implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
+    public String getNickName() {
+        return nickName;
+    }
 }

@@ -3,12 +3,12 @@ package com.yxnne.mysides;
 import android.app.Application;
 import android.content.res.XmlResourceParser;
 
+import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.log.LogGenerator;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 
 /**
  * Created by Administrator on 2016/10/14.
@@ -25,6 +25,8 @@ public class YApplication extends Application {
     /*开始时间*/
     private long appStartTime;
     private XMPPConnection xmppConn;
+    //当前网络类型
+    public static int network_type= Const.TYPE_NETWORK_WIFI;
 
     @Override
     public void onCreate() {
@@ -96,7 +98,7 @@ public class YApplication extends Application {
                 cf.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
                 //
                 SASLAuthentication.supportSASLMechanism("PLAIN",0);
-                xmppConn = new XMPPTCPConnection(cf);
+                xmppConn = new XMPPConnection(cf);
                 try {
                     xmppConn.connect();
                     //同步机制 为了防止尚未链接到server就点击了登录
