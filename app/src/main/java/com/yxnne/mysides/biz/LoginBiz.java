@@ -8,6 +8,7 @@ import com.yxnne.mysides.entity.UserEntity;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.log.LogGenerator;
 
+import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.sasl.SASLErrorException;
 
 /**
@@ -65,9 +66,11 @@ public class LoginBiz {
                         //链接失败需要重连,samack bug
                         //YApplication.instance.getXMPPConnection().disconnect();
                         YApplication.instance.connect2OpenfireServer();
+                        loginStatus = Const.STATUS_LOGIN_FAILURE;
                     }
-
-                    loginStatus = Const.STATUS_LOGIN_FAILURE;
+                    if(e instanceof SmackException.AlreadyLoggedInException){
+                        loginStatus = Const.STATUS_ALREADY_LOGGIN;
+                    }
                     e.printStackTrace();
 
                 }finally {
