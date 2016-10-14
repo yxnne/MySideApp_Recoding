@@ -26,6 +26,7 @@ public class AndroidSysLog implements IMyLog {
 
     @Override
     public void printError(Exception e) {
-        Log.e(TAG_ERROR,e.getMessage(),e);
+        Log.e(IMyLog.TAG_ERROR,e.getMessage());
+        e.printStackTrace();
     }
 }

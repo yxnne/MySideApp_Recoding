@@ -82,7 +82,7 @@ public class YApplication extends Application {
      */
     private boolean connectedOnce;/*已经连了一次*/
 
-    private void connect2OpenfireServer() {
+    public void connect2OpenfireServer() {
         if (port == 0 || ip == null || serviceName == null) {
             LogGenerator.getInstance().printError("Parsed config xml has trouble!");
             return;
