@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+
+    <ip>115.159.189.43</ip>
+
+    <port>5222</port>
+
+    <serviceName>admin</serviceName>
+
+</config>

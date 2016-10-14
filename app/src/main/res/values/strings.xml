@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MySide</string>
+    <string name="app_name2">yxnneSide</string>
+    <string name="login_tittle">Login</string>
+    <string name="submit_btn">Login</string>
+    <string name="username">UserName</string>
+    <string name="passkey">Password</string>
+    <string name="hint_user_input">Your User Name Here!</string>
+    <string name="hint_pwd_input">And Password Here!</string>
+    <string name="openfire_connection_failed">Server Unconnection!</string>
+    <string name="login_failed">Login Failed!</string>
+    <string name="login_ok">Login Successfully!</string>
+    <string name="err_empty_user">User Cannot be Empty!</string>
+    <string name="err_empty_pwd">Password Cannot be Empty!</string>
+
+</resources>
