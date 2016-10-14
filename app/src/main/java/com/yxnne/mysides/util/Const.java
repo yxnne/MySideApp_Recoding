@@ -18,6 +18,8 @@ public class Const {
     public static final int STATUS_LOGIN_FAILURE = 0x01002;
     //连接失败
     public static final int STATUS_CONNECT_FAILURE = 0x01003;
+    //已经登录，或未退出
+    public static final int STATUS_ALREADY_LOGGIN = 0x01004;
 
 
 }

@@ -10,7 +10,10 @@
     <string name="openfire_connection_failed">Server Unconnection!</string>
     <string name="login_failed">Login Failed!</string>
     <string name="login_ok">Login Successfully!</string>
+    <string name="already_loggin">An User Already Loggin Without Logout!</string>
     <string name="err_empty_user">User Cannot be Empty!</string>
     <string name="err_empty_pwd">Password Cannot be Empty!</string>
-
+    <string name="no_network">No Network Service!</string>
+    <string name="open">Go Open</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //得到版本名，在gradle里面配置
         tvVersionName = (TextView) findViewById(R.id.tv_activity_main_versionName);
-        tvVersionName.setText(CommenTools.getVersionName(this));
+        String strVersionName = "v"+CommenTools.getVersionName(this);
+        tvVersionName.setText(strVersionName);
         //3秒后跳转
         new Thread(new Runnable() {
             @Override

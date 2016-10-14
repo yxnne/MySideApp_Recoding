@@ -17,6 +17,7 @@ import com.yxnne.mysides.R;
 import com.yxnne.mysides.biz.LoginBiz;
 import com.yxnne.mysides.entity.UserEntity;
 import com.yxnne.mysides.util.Const;
+import com.yxnne.mysides.util.NetWorkUtil;
 
 public class LoginActivity extends AppCompatActivity {
     private TextView tvSubmit;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //testLoginBiz();
         findViews();
+        NetWorkUtil.checkAndOpenNetworkSetting(this);
         setListners();
         mLoginReciever = new LoginReciever();
     }
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 StringBuilder builder = new StringBuilder();
                 if (TextUtils.isEmpty(username)) {
                     builder.append(
-                            getResources().getString(R.string.err_empty_pwd)+"\n");
+                            getResources().getString(R.string.err_empty_user)+"\n");
                 }
                 if (TextUtils.isEmpty(password)) {
                     builder.append(
@@ -115,6 +117,10 @@ public class LoginActivity extends AppCompatActivity {
                 case Const.STATUS_LOGIN_OK:
                     resault = getResources().
                             getString(R.string.login_ok);
+                    break;
+                case Const.STATUS_ALREADY_LOGGIN:
+                    resault = getResources().
+                            getString(R.string.already_loggin);
                     break;
             }
             Toast.makeText(LoginActivity.this,resault,Toast.LENGTH_LONG).show();
