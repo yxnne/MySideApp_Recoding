@@ -10,8 +10,8 @@
     <string name="nickname">NikeName</string>
 
     <string name="hint_nickname_input">Give Yourself A Nickname</string>
-    <string name="hint_user_input">Your User Name Here!</string>
-    <string name="hint_pwd_input">And Password Here!</string>
+    <string name="hint_user_input">Your UserName input Here!</string>
+    <string name="hint_pwd_input">And Your Password Here!</string>
     <string name="hint_confirm_pwd">Comfirm Password</string>
 
     <string name="openfire_connection_failed">Server Unconnection!</string>

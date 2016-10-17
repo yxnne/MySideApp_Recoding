@@ -74,6 +74,7 @@
 
                 <EditText
                     android:id="@+id/et_register_username"
+                    android:background="@drawable/edittext_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/tv_register_username"
@@ -96,6 +97,7 @@
 
                 <EditText
                     android:id="@+id/et_register_password"
+                    android:background="@drawable/edittext_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/tv_register_password"
@@ -109,12 +111,14 @@
                     android:id="@+id/tv_register_confirmPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/tv_register_username"
                     android:layout_below="@id/tv_register_password"
                     android:layout_marginTop="@dimen/margin"
                     android:text="@string/password" />
 
                 <EditText
                     android:id="@+id/et_register_confirmPassword"
+                    android:background="@drawable/edittext_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/tv_register_confirmPassword"
@@ -136,6 +140,7 @@
 
                 <EditText
                     android:id="@+id/et_register_nickname"
+                    android:background="@drawable/edittext_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/tv_register_nickname"

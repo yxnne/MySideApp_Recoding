@@ -25,7 +25,9 @@
 
         <EditText
             android:id="@+id/et_login_username"
-            android:layout_width="wrap_content"
+            android:background="@drawable/edittext_selector"
+            android:layout_toEndOf="@id/tv_login_username"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_login_username"
             android:hint="@string/hint_user_input"
@@ -48,7 +50,8 @@
 
         <EditText
             android:id="@+id/et_login_password"
-            android:layout_width="wrap_content"
+            android:background="@drawable/edittext_selector"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_login_password"
             android:layout_below="@id/et_login_username"
