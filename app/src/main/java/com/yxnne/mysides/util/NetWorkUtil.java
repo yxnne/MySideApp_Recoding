@@ -25,7 +25,7 @@ public class NetWorkUtil {
                     new AlertDialog.Builder(context);
             dialogBuilder.setMessage(context.getResources().getString(R.string.no_network));
                     //.setPositiveButton("").setNegativeButton("");
-            dialogBuilder.setPositiveButton(context.getResources().getString(R.string.open),
+            dialogBuilder.setPositiveButton(context.getResources().getString(R.string.go_open),
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

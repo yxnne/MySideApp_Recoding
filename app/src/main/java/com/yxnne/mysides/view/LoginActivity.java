@@ -20,9 +20,9 @@ import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.NetWorkUtil;
 
 public class LoginActivity extends AppCompatActivity {
-    private TextView tvSubmit;
+    private TextView tvSubmit,tvRegister;
     private EditText etUserName,etPwd;
-    LoginReciever mLoginReciever;
+    LoginReceiver mLoginReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,30 +31,32 @@ public class LoginActivity extends AppCompatActivity {
         findViews();
         NetWorkUtil.checkAndOpenNetworkSetting(this);
         setListners();
-        mLoginReciever = new LoginReciever();
+        mLoginReceiver = new LoginReceiver();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         IntentFilter intentFilter = new IntentFilter(Const.ACTION_LOGIN_RESAULT);
-        registerReceiver(mLoginReciever,intentFilter);
+        registerReceiver(mLoginReceiver,intentFilter);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(mLoginReciever);
+        unregisterReceiver(mLoginReceiver);
     }
 
     private void setListners() {
         tvSubmit.setOnClickListener(new MyOnClickListner());
+        tvRegister.setOnClickListener(new MyOnClickListner());
     }
 
     private void findViews() {
         tvSubmit = (TextView) findViewById(R.id.tv_login_submit);
         etUserName = (EditText) findViewById(R.id.et_login_username);
         etPwd = (EditText) findViewById(R.id.et_login_password);
+        tvRegister = (TextView) findViewById(R.id.tv_login_toRegister);
     }
 
     /**
@@ -64,43 +66,59 @@ public class LoginActivity extends AppCompatActivity {
     private class MyOnClickListner implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            try {
-                String username = etUserName.getText().toString();
-                String password = etPwd.getText().toString();
-
-                StringBuilder builder = new StringBuilder();
-                if (TextUtils.isEmpty(username)) {
-                    builder.append(
-                            getResources().getString(R.string.err_empty_user)+"\n");
-                }
-                if (TextUtils.isEmpty(password)) {
-                    builder.append(
-                            getResources().getString(R.string.err_empty_pwd));
-                }
-                if (!TextUtils.isEmpty(builder.toString())) {
-                    // 前面的数据检查没有通过
-                    Toast.makeText(LoginActivity.this, builder.toString(), Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-
-                UserEntity userEntity = new UserEntity(username, password);
-                LoginBiz loginBiz = new LoginBiz();
-                loginBiz.login(userEntity);
-            } catch (Exception e) {
-                e.printStackTrace();
+            switch (v.getId()){
+                case R.id.tv_login_submit:
+                    doLogin();
+                    break;
+                case R.id.tv_login_toRegister:
+                    doRegister();
+                    break;
             }
         }
     }
-//    private void testLoginBiz() {
-//        LoginBiz lb = new LoginBiz();
-//        lb.login(new UserEntity("q","q"));
-//    }
 
-    private class LoginReciever extends BroadcastReceiver{
+    private void doRegister() {
+        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    private void doLogin(){
+
+        try {
+            String username = etUserName.getText().toString();
+            String password = etPwd.getText().toString();
+
+            StringBuilder builder = new StringBuilder();
+            if (TextUtils.isEmpty(username)) {
+                builder.append(
+                        getResources().getString(R.string.err_empty_user));
+            }
+            if (TextUtils.isEmpty(password)) {
+                builder.append(
+                        getResources().getString(R.string.err_empty_pwd));
+            }
+            if (!TextUtils.isEmpty(builder.toString())) {
+                // 前面的数据检查没有通过
+                Toast.makeText(LoginActivity.this, builder.toString(), Toast.LENGTH_SHORT)
+                        .show();
+                return;
+            }
+
+            UserEntity userEntity = new UserEntity(username, password);
+            LoginBiz loginBiz = new LoginBiz();
+            loginBiz.login(userEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    /**
+     * Reciever
+     */
+    private class LoginReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
-            int loginStatus = intent.getIntExtra(Const.LOGIN_STATUS,0);
+            int loginStatus = intent.getIntExtra(Const.STATUS_KEY,0);
             String resault = "";
             switch (loginStatus){
                 //链接server失败

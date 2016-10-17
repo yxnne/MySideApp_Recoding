@@ -1,19 +1,32 @@
 <resources>
     <string name="app_name">MySide</string>
-    <string name="app_name2">yxnneSide</string>
-    <string name="login_tittle">Login</string>
-    <string name="submit_btn">Login</string>
+    <string name="login">Login</string>
     <string name="username">UserName</string>
-    <string name="passkey">Password</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="submit">Submit</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="nickname">NikeName</string>
+
+    <string name="hint_nickname_input">Give Yourself A Nickname</string>
     <string name="hint_user_input">Your User Name Here!</string>
     <string name="hint_pwd_input">And Password Here!</string>
+    <string name="hint_confirm_pwd">Comfirm Password</string>
+
     <string name="openfire_connection_failed">Server Unconnection!</string>
     <string name="login_failed">Login Failed!</string>
     <string name="login_ok">Login Successfully!</string>
     <string name="already_loggin">An User Already Loggin Without Logout!</string>
     <string name="err_empty_user">User Cannot be Empty!</string>
     <string name="err_empty_pwd">Password Cannot be Empty!</string>
+    <string name="err_empty_nickname">You Need A Nickname!</string>
+    <string name="err_emptycomfirm_pwd">Input Password Again!</string>
+    <string name="err_emptycomfirm_pwd_error">Confirmd Error Password!</string>
     <string name="no_network">No Network Service!</string>
-    <string name="open">Go Open</string>
-    <string name="cancel">Cancel</string>
+    <string name="go_open">Go Open</string>
+    <string name="register_user_ok">Register Success!</string>
+    <string name="register_user_failed">Register Failed!</string>
+    <string name="register_user_conflict">Comflict: This User Exsits!</string>
+
 </resources>

@@ -8,9 +8,8 @@ package com.yxnne.mysides.util;
 public class Const {
 
     public static final String ACTION_LOGIN_RESAULT = "com.yxnne.myside.login";
-    public static final String LOGIN_STATUS = "login_status";
+    public static final String STATUS_KEY = "key_status";
 
-    //登录结果有三种情况,定义状态码
     /*登录相关的业务常量 01*/
     //登录成功
     public static final int STATUS_LOGIN_OK = 0x01001;
@@ -25,6 +24,10 @@ public class Const {
     public static final int TYPE_NETWORK_NONE = 0x02001;
     public static final int TYPE_NETWORK_WIFI = 0x02002;
     public static final int TYPE_NETWORK_MOBILE = 0x02003;
+    /*注册相关 03*/
+    public static final int STATUS_REGIST_OK = 0x03001;
+    public static final int STATUS_REGIST_FAILED = 0x03002;
+    public static final int STATUS_REGIST_CONFLICT = 0x03003;
 
 
 }

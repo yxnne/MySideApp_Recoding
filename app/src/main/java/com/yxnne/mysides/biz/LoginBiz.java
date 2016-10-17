@@ -58,22 +58,12 @@ public class LoginBiz {
                 }
                 catch (Exception e) {
                     //此异常时login失败的时候抛出的
-//                    if (e instanceof SASLErrorException) {
-//                        LogGenerator.getInstance().printMsg("login failed ");
-//                        //链接失败需要重连,samack bug
-//                        //YApplication.instance.getXMPPConnection().disconnect();
-//                        YApplication.instance.connect2OpenfireServer();
-//                        loginStatus = Const.STATUS_LOGIN_FAILURE;
-//                    }
-//                    if(e instanceof SmackException.AlreadyLoggedInException){
-//                        loginStatus = Const.STATUS_ALREADY_LOGGIN;
-//                    }
                     e.printStackTrace();
 
                 }finally {
                     //根据状态发送广播
                     Intent intent = new Intent(Const.ACTION_LOGIN_RESAULT);
-                    intent.putExtra(Const.LOGIN_STATUS,loginStatus);
+                    intent.putExtra(Const.STATUS_KEY,loginStatus);
                     YApplication.instance.sendBroadcast(intent);
                 }
             }

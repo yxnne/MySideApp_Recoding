@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yxnne.mysides.view.RegisterActivity">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/title_backaground" >
+
+        <TextView
+            android:id="@+id/tv_register_toLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/back"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_title" />
+
+        <TextView
+            android:id="@+id/tv_register_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/register"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_title" />
+
+        <TextView
+            android:id="@+id/tv_register_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="@string/submit"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_title" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title"
+        android:background="@color/contentBackground" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="50dp"
+                >
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:id="@+id/tv_register_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/margin"
+                    android:text="@string/username" />
+
+                <EditText
+                    android:id="@+id/et_register_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_register_username"
+                    android:layout_toEndOf="@+id/tv_register_username"
+                    android:ems="10"
+                    android:hint="@string/hint_user_input" >
+
+                    <requestFocus />
+                </EditText>
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:id="@+id/tv_register_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/tv_register_username"
+                    android:layout_alignEnd="@id/tv_register_username"
+                    android:layout_below="@id/tv_register_username"
+                    android:layout_marginTop="@dimen/margin"
+                    android:text="@string/password" />
+
+                <EditText
+                    android:id="@+id/et_register_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_register_password"
+                    android:layout_below="@id/et_register_username"
+                    android:layout_toEndOf="@id/tv_register_password"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:hint="@string/hint_pwd_input" />
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:id="@+id/tv_register_confirmPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_register_password"
+                    android:layout_marginTop="@dimen/margin"
+                    android:text="@string/password" />
+
+                <EditText
+                    android:id="@+id/et_register_confirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_register_confirmPassword"
+                    android:layout_below="@id/et_register_password"
+                    android:layout_toEndOf="@id/tv_register_confirmPassword"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:hint="@string/hint_confirm_pwd" />
+
+                <me.biubiubiu.justifytext.library.JustifyTextView
+                    android:id="@+id/tv_register_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/tv_register_username"
+                    android:layout_alignEnd="@id/tv_register_username"
+                    android:layout_below="@id/tv_register_confirmPassword"
+                    android:layout_marginTop="@dimen/margin"
+                    android:text="@string/nickname" />
+
+                <EditText
+                    android:id="@+id/et_register_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_register_nickname"
+                    android:layout_below="@id/et_register_confirmPassword"
+                    android:layout_toEndOf="@id/tv_register_nickname"
+                    android:ems="10"
+                    android:hint="@string/hint_nickname_input" />
+
+                <EditText
+                    android:id="@+id/a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_register_nickname"
+                    android:ems="10"
+                    android:visibility="invisible" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
