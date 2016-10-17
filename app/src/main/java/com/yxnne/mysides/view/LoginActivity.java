@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.yxnne.mysides.R;
 
 import com.yxnne.mysides.biz.LoginBiz;
@@ -23,15 +24,42 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvSubmit,tvRegister;
     private EditText etUserName,etPwd;
     LoginReceiver mLoginReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //testLoginBiz();
         findViews();
+        SlidingMenuTest();
         NetWorkUtil.checkAndOpenNetworkSetting(this);
         setListners();
         mLoginReceiver = new LoginReceiver();
+    }
+
+    /**
+     * just Test the Sliding Menu
+     */
+    private void SlidingMenuTest() {
+        SlidingMenu menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.LEFT);
+        // 设置触摸屏幕的模式
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setShadowWidthRes(R.dimen.activity_horizontal_margin);
+//        menu.setShadowDrawable(R.drawable.shadow);
+
+        // 设置滑动菜单视图的宽度
+        menu.setBehindOffsetRes(R.dimen.activity_horizontal_margin);
+        // 设置渐入渐出效果的值
+        menu.setFadeDegree(0.35f);
+        /**
+         * SLIDING_WINDOW will include the Title/ActionBar in the content
+         * section of the SlidingMenu, while SLIDING_CONTENT does not.
+         */
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        //为侧滑菜单设置布局
+        menu.setMenu(R.layout.slidingmenu_left_layout);
+
     }
 
     @Override

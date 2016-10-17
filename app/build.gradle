@@ -28,6 +28,8 @@ dependencies {
     compile(name: 'asmacklibrary-release', ext: 'aar')
     testCompile 'junit:junit:4.12'
     //compile project(':asmacklibrary')
+    // compile 'org.holoeverywhere:addon-slidingmenu:1.5.0'
+    compile project(':sliding_menu')
 }
 repositories{
     flatDir{

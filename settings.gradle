@@ -1,1 +1,1 @@
-include ':app', ':asmacklibrary'
+include ':app', ':asmacklibrary', ':sliding_menu'
