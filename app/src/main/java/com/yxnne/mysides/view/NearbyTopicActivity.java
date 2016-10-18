@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.yxnne.mysides.R;
 
-public class NearbyTopicActivity extends AppCompatActivity {
+public class NearbyTopicActivity extends BaseActivity {
     private ImageView ivNearbyShowMenu;
     private MyLeftSildingMenu leftMenu ;
     @Override

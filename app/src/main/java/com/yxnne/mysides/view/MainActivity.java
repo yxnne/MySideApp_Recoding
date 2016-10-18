@@ -8,9 +8,7 @@ import android.widget.TextView;
 import com.yxnne.mysides.R;
 import com.yxnne.mysides.util.CommenTools;
 
-public class MainActivity extends AppCompatActivity {
-
-
+public class MainActivity extends BaseActivity {
     TextView tvVersionName;
 
     @Override

@@ -15,7 +15,7 @@ import com.yxnne.mysides.biz.RegisterUserBiz;
 import com.yxnne.mysides.entity.UserEntity;
 import com.yxnne.mysides.util.Const;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     EditText etUsername, etPassword, etConfirmPassword, etNickName;
     TextView tvSubmit,tvBack;

@@ -4,23 +4,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.yxnne.mysides.R;
-
 import com.yxnne.mysides.biz.LoginBiz;
 import com.yxnne.mysides.entity.UserEntity;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.NetWorkUtil;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private TextView tvSubmit,tvRegister;
     private EditText etUserName,etPwd;
     LoginReceiver mLoginReceiver;
@@ -47,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         menu.setShadowWidthRes(R.dimen.activity_horizontal_margin);
 //        menu.setShadowDrawable(R.drawable.shadow);
-
         // 设置滑动菜单视图的宽度
         menu.setBehindOffsetRes(R.dimen.activity_horizontal_margin);
         // 设置渐入渐出效果的值
@@ -85,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         etUserName = (EditText) findViewById(R.id.et_login_username);
         etPwd = (EditText) findViewById(R.id.et_login_password);
         tvRegister = (TextView) findViewById(R.id.tv_login_toRegister);
+        //toTest
     }
 
     /**

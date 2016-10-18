@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.yxnne.mysides.R;
 
-public class MyFriendActivity extends AppCompatActivity {
+public class MyFriendActivity extends BaseActivity {
     private MyLeftSildingMenu leftMenu ;
     private ImageView ivShowMenu;
 

@@ -1,5 +1,6 @@
 package com.yxnne.mysides;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.res.XmlResourceParser;
 
@@ -9,6 +10,8 @@ import com.yxnne.mysides.util.log.LogGenerator;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/10/14.
@@ -28,6 +31,9 @@ public class YApplication extends Application {
     //当前网络类型
     public static int network_type= Const.TYPE_NETWORK_WIFI;
 
+    //
+    public static ArrayList<Activity> activities = new ArrayList<>();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -36,6 +42,19 @@ public class YApplication extends Application {
         instance = this;
         readConnectionConfig();
         connect2OpenfireServer();
+    }
+    /**
+     * 程序退出的方法
+     */
+    public void exitApp(){
+        // 关闭所有activity
+        for (Activity activity : activities) {
+            activity.finish();
+        }
+        // 断开与服务器的连接
+        xmppConn.disconnect();
+        //结束进程
+        System.exit(0);
     }
 
     public XMPPConnection getXMPPConnection() {

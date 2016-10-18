@@ -37,5 +37,28 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_launcher" />
     </RelativeLayout>
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btn_setting_exit_app"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_all_exit" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

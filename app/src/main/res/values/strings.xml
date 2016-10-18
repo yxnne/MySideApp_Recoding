@@ -29,6 +29,7 @@
     <string name="btn_my_msg">My Message</string>
     <string name="btn_settings">Settings</string>
     <string name="btn_my_profile">My Profile</string>
+    <string name="btn_all_exit">Exit APP</string>
 
     <string name="openfire_connection_failed">Server Unconnection!</string>
     <string name="login_failed">Login Failed!</string>

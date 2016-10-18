@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.yxnne.mysides.R;
 
-public class MyProfileActivity extends AppCompatActivity {
+public class MyProfileActivity extends BaseActivity {
     private ImageView ivProfileShowMenu;
     private MyLeftSildingMenu leftMenu ;
     @Override
