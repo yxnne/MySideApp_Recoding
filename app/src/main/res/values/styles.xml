@@ -7,5 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="title_text_style" parent="AppTheme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+    </style>
+    <style name="context_text" parent="title_text_style">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
 </resources>

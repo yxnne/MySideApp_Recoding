@@ -163,6 +163,8 @@ public class LoginActivity extends AppCompatActivity {
                 case Const.STATUS_LOGIN_OK:
                     resault = getResources().
                             getString(R.string.login_ok);
+                    startActivity(new Intent(LoginActivity.this,TopicActivity.class));
+                    finish();
                     break;
                 case Const.STATUS_ALREADY_LOGGIN:
                     resault = getResources().

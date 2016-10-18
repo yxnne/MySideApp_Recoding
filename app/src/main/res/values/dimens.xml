@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_size_title">22sp</dimen>
     <dimen name="margin">32dp</dimen>
+    <dimen name="shadow_width">20dp</dimen>
+    <dimen name="slidingmenu_offset">20dp</dimen>
 </resources>

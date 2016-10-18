@@ -28,7 +28,13 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".view.RegisterActivity"></activity>
+        <activity android:name=".view.RegisterActivity" />
+        <activity android:name=".view.TopicActivity" />
+        <activity android:name=".view.MyFriendActivity" />
+        <activity android:name=".view.MyProfileActivity" />
+        <activity android:name=".view.NearbyTopicActivity" />
+        <activity android:name=".view.SettingActivity" />
+        <activity android:name=".view.MyMsgActivity"></activity>
     </application>
 
 </manifest>
