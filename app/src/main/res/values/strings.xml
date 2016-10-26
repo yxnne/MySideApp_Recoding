@@ -30,6 +30,7 @@
     <string name="btn_settings">Settings</string>
     <string name="btn_my_profile">My Profile</string>
     <string name="btn_all_exit">Exit APP</string>
+    <string name="btn_update_appversion">UpDate APP</string>
 
     <string name="openfire_connection_failed">Server Unconnection!</string>
     <string name="login_failed">Login Failed!</string>
@@ -45,5 +46,9 @@
     <string name="register_user_ok">Register Success!</string>
     <string name="register_user_failed">Register Failed!</string>
     <string name="register_user_conflict">Comflict: This User Exsits!</string>
-
+    <string name="err_update_fail">Update Error!</string>
+    <string name="err_update_current_is_new">Update Unnecessary:Your Version is New Version</string>
+    <string name="version_update">Verion:</string>
+    <string name="msg_marry_choose_to_update">98% Users Choose Update the New Version!</string>
+    <string name="btn_dailog_update_now">Update Now!</string>
 </resources>

@@ -30,6 +30,7 @@ dependencies {
     //compile project(':asmacklibrary')
     // compile 'org.holoeverywhere:addon-slidingmenu:1.5.0'
     compile project(':sliding_menu')
+    compile files('libs/android-async-http-1.4.4.jar')
 }
 repositories{
     flatDir{

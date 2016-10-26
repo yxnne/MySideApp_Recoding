@@ -56,6 +56,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_all_exit" />
+            <Button
+                android:id="@+id/btn_setting_update_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_update_appversion" />
 
         </LinearLayout>
     </ScrollView>

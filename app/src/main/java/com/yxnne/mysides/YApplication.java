@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.res.XmlResourceParser;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.log.LogGenerator;
 
@@ -30,10 +31,10 @@ public class YApplication extends Application {
     private XMPPConnection xmppConn;
     //当前网络类型
     public static int network_type= Const.TYPE_NETWORK_WIFI;
-
     //
     public static ArrayList<Activity> activities = new ArrayList<>();
-
+    //异步http任务类
+    public static AsyncHttpClient asyncHttpClient=new AsyncHttpClient();
     @Override
     public void onCreate() {
         super.onCreate();
