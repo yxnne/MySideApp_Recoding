@@ -1,6 +1,8 @@
 package com.yxnne.mysides.view;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,29 +19,59 @@ import com.yxnne.mysides.entity.UpdateEntity;
 import com.yxnne.mysides.util.CommenTools;
 import com.yxnne.mysides.util.Const;
 
+import java.io.File;
+
 public class SettingActivity extends BaseActivity {
     private ImageView ivShowMenu;
     private MyLeftSildingMenu leftMenu;
     private Button btnExit, btnUpdate;
     public static final int MSG_SHOW_VERSION = 1;
     public static final int MSG_INSTALL_APK = 2;
+    public static final int MSG_SHOW_VERSION_ERROR = 3;
+    public static final int MSG_DOWNLOAD_APK_ERROR = 4;
+    public static final int MSG_INSTALL_APK_ERROR = 5;
+
     public Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             int msgId = msg.what;
             Bundle bundle = msg.getData();
             switch (msgId) {
-                case MSG_SHOW_VERSION:
+                case MSG_SHOW_VERSION://获得版本信息
                     UpdateEntity updateEntity = (UpdateEntity) bundle
                             .getSerializable(Const.STATUS_KEY);
                     showVersion(updateEntity);
                     break;
+                case MSG_INSTALL_APK://安装apk
+                    String apkPath = bundle.getString(Const.STATUS_KEY);
+                    installApk(apkPath);
+                    break;
+                case MSG_SHOW_VERSION_ERROR://查看失败
+                    String err1 = getResources().getString(R.string.err_update_apk_msg);
+                    Toast.makeText(SettingActivity.this,err1,Toast.LENGTH_LONG).show();
+                    break;
+                case MSG_DOWNLOAD_APK_ERROR://下载apk失败
+                    String err2 = getResources().getString(R.string.err_download_update_apk);
+                    Toast.makeText(SettingActivity.this,err2,Toast.LENGTH_LONG).show();
+                    break;
+                case MSG_INSTALL_APK_ERROR://安装apk失败
+                    String err3 = getResources().getString(R.string.err_save_apk_msg);
+                    Toast.makeText(SettingActivity.this,err3,Toast.LENGTH_LONG).show();
 
-                case MSG_INSTALL_APK:
                     break;
             }
         }
+        private void installApk(String apkPath) {
 
-        private void showVersion(UpdateEntity updateEntity) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            File fileApk = new File(apkPath);
+            // type是apk的类型
+            // mime
+            intent.setDataAndType(Uri.fromFile(fileApk),
+                    "application/vnd.android.package-archive");
+            startActivity(intent);
+        }
+
+        private void showVersion(final UpdateEntity updateEntity) {
             // 判断updateEntity是否为空
             if (updateEntity == null) {
                 Toast.makeText(SettingActivity.this,
@@ -65,7 +97,8 @@ public class SettingActivity extends BaseActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // TODO Auto-generated method stub
+                                    UpdateBiz updateBiz = new UpdateBiz();
+                                    updateBiz.getApk(handler, updateEntity.getApkUrl());
 
                                 }
                             });
@@ -75,7 +108,6 @@ public class SettingActivity extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog,
                                                     int which) {
-                                    // TODO Auto-generated method stub
                                     dialog.cancel();
                                 }
                             });

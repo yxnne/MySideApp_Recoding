@@ -41,6 +41,9 @@
     <string name="err_empty_nickname">You Need A Nickname!</string>
     <string name="err_emptycomfirm_pwd">Input Password Again!</string>
     <string name="err_emptycomfirm_pwd_error">Confirmd Error Password!</string>
+    <string name="err_update_apk_msg">Errors: Get Version Message!</string>
+    <string name="err_download_update_apk">Get Apk of The New Versoin Failed!</string>
+    <string name="err_save_apk_msg">Errors:APK Save Failed!</string>
     <string name="no_network">No Network Service!</string>
     <string name="go_open">Go Open</string>
     <string name="register_user_ok">Register Success!</string>

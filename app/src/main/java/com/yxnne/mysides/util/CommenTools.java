@@ -4,6 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Environment;
+
+import com.yxnne.mysides.util.log.LogGenerator;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * 通用工具类
@@ -12,7 +18,6 @@ import android.content.pm.PackageManager;
 
 public class CommenTools{
     private static ProgressDialog progressDialog;
-
     /**
      * 取消对话框
      */
@@ -71,6 +76,51 @@ public class CommenTools{
             e.printStackTrace();
         }
         return versionName;
+    }
+
+    /**
+     * 向SD卡写入
+     * @param context 上下文
+     * @param path 路径
+     * @param fileName 文件名
+     * @param data 数据
+     */
+    public static void writeToSdcard(Context context, String path,
+                                     String fileName, byte[] data) {
+        // 判断sdcard有没有
+        String sdcard_state = Environment.getExternalStorageState();
+        // 判断SD卡是否存在，并且是否具有读写权限
+        if (Environment.MEDIA_MOUNTED.equals(sdcard_state)) {
+            FileOutputStream fileOutputStream = null;
+            // 有sdcard
+            // 判断文件夹有没有
+            try {
+                File fileDirectory = new File(path);
+                if (!fileDirectory.exists()) {
+                    // 没有创建
+                    fileDirectory.mkdirs();
+                }
+
+                File file = new File(fileDirectory, fileName);
+                if (file.exists()) {
+                    file.delete();
+                }
+                file.createNewFile();
+                fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(data);
+            } catch (Exception e) {
+                LogGenerator.getInstance().printError(e);
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fileOutputStream != null) {
+                        fileOutputStream.close();
+                    }
+                } catch (Exception e2) {
+                    LogGenerator.getInstance().printError(e2);
+                }
+            }
+        }
     }
 }
 
