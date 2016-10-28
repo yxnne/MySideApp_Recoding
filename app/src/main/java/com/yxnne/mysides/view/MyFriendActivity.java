@@ -1,34 +1,65 @@
 package com.yxnne.mysides.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.yxnne.mysides.R;
+import com.yxnne.mysides.YApplication;
+import com.yxnne.mysides.adapter.MyFriendsExpandableAdapter;
+import com.yxnne.mysides.util.log.LogGenerator;
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterGroup;
+import org.jivesoftware.smack.XMPPConnection;
+import java.util.ArrayList;
 
 public class MyFriendActivity extends BaseActivity {
     private MyLeftSildingMenu leftMenu ;
     private ImageView ivShowMenu;
     private TextView tvAdd;
-    private ListView lvMyFrinends;
+    private ExpandableListView expLvMyFriend;
+    private PopupWindow popupWindow;
+    private RelativeLayout relativeLayout;
+    private MyFriendsExpandableAdapter expAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_friend);
         findView();
+
         addShowMenuBtn();
         addListner();
+        getFriends();
     }
 
     private void findView() {
-        lvMyFrinends = (ListView) findViewById(R.id.lv_myfriend);
-        tvAdd = (TextView) findViewById(R.id.tv_myfriendc_add);
+        expLvMyFriend = (ExpandableListView) findViewById(R.id.expandable_lv_myfriend);
+        tvAdd = (TextView) findViewById(R.id.tv_myfriend_addmore);
         leftMenu  = new MyLeftSildingMenu(this,R.layout.slidingmenu_left_layout);
+        relativeLayout = (RelativeLayout) findViewById(R.id.rl_myfrined_activivty);
+    }
+    private void getFriends(){
+        XMPPConnection connection = YApplication.instance.getXMPPConnection();
+        if(connection.isConnected()){
+            LogGenerator.getInstance().printMsg("connection.isConnected()");
+            Roster roster = connection.getRoster();
+            ArrayList<RosterGroup> listGroup = new ArrayList(roster.getGroups());
+            LogGenerator.getInstance().printMsg( listGroup.toString());
+            expAdapter = new MyFriendsExpandableAdapter(this, listGroup);
+            expLvMyFriend.setAdapter(expAdapter);
+        }else{
+            //TODO 通知用户，链接失败
+        }
+
     }
 
     private void addShowMenuBtn() {
@@ -40,13 +71,70 @@ public class MyFriendActivity extends BaseActivity {
             }
         });
     }
+
     private void addListner() {
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyFriendActivity.this,
-                        AddFriendActivity.class));
+                LogGenerator.getInstance().printMsg("press add +");
+                try {
+                    if (popupWindow == null) {
+                        // 显示my_friend_more.xml
+                        View view = View.inflate(MyFriendActivity.this,
+                                R.layout.popup_myfriend_add_more, null);
+                        popupWindow = new PopupWindow(view,
+                                ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        //这个方法显示在view内
+//                        popupWindow.showAtLocation(relativeLayout, Gravity.TOP
+//                                | Gravity.RIGHT, 0, relativeLayout.getHeight() + 100);
+                        //显示在控件下面
+                        popupWindow.showAsDropDown(relativeLayout,0, 0, Gravity.TOP | Gravity.END);
+
+                        Button btnAddNormal = (Button) view
+                                .findViewById(R.id.btn_my_friend_more_addFriend_normal);
+                        btnAddNormal.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(new Intent(MyFriendActivity.this,
+                                        AddFriendActivity.class));
+                                closePopupWindow();
+                            }
+                        });
+                    } else {
+                        popupWindow.dismiss();
+                        popupWindow = null;
+                    }
+                } catch (Exception e) {
+                    LogGenerator.getInstance().printError(e);
+                }
+
             }
         });
     }
+    private void closePopupWindow(){
+        if (popupWindow!=null && popupWindow.isShowing())
+        {
+            popupWindow.dismiss();
+            popupWindow = null;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK)
+        {
+            if(popupWindow!=null && popupWindow.isShowing()){
+                popupWindow.dismiss();
+                popupWindow = null;
+                return true;//这个事件我处理了
+            }else{
+                return super.onKeyDown(keyCode, event);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

@@ -6,4 +6,8 @@
     <dimen name="margin">32dp</dimen>
     <dimen name="shadow_width">20dp</dimen>
     <dimen name="slidingmenu_offset">20dp</dimen>
+    <dimen name="popup_window_width">180dp</dimen>
+    <dimen name="popup_window_button_right_margin">16dp</dimen>
+    <dimen name="explv_myfriend_group_left_offset">40dp</dimen>
+    <dimen name="explv_myfriend_friend_left_offset">60dp</dimen>
 </resources>

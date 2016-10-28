@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.yxnne.mysides.view.MyFriendActivity">
     <RelativeLayout
-        android:id="@+id/title"
+        android:id="@+id/rl_myfrined_activivty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -31,21 +31,23 @@
             android:layout_marginStart="15dp"
             android:src="@mipmap/ic_launcher" />
         <TextView
-            android:id="@+id/tv_myfriendc_add"
+            android:id="@+id/tv_myfriend_addmore"
             style="@style/title_text_style"
+            android:textSize="40sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="@string/add_friends" />
     </RelativeLayout>
-    <ListView
-        android:id="@+id/lv_myfriend"
+    <ExpandableListView
+        android:layout_below="@id/rl_myfrined_activivty"
+        android:id="@+id/expandable_lv_myfriend"
         android:background="@color/contentBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/title"
         >
-    </ListView>
+    </ExpandableListView>
+
 </RelativeLayout>
