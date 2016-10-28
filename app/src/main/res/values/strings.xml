@@ -8,11 +8,14 @@
     <string name="my_msg">My Message</string>
     <string name="nearby_topic">Nearby Topic</string>
     <string name="settings">Settings</string>
+    <string name="add_friends">Add</string>
+    <string name="add_a_new_friend">Add New Friend</string>
 
 
     <string name="username">UserName</string>
     <string name="password">Password</string>
     <string name="submit">Submit</string>
+    <string name="group">Group</string>
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="nickname">NikeName</string>
@@ -36,15 +39,22 @@
     <string name="login_failed">Login Failed!</string>
     <string name="login_ok">Login Successfully!</string>
     <string name="already_loggin">An User Already Loggin Without Logout!</string>
+
+
     <string name="err_empty_user">User Cannot be Empty!</string>
+    <string name="err_empty_user2">UserName unProvided!</string>
     <string name="err_empty_pwd">Password Cannot be Empty!</string>
     <string name="err_empty_nickname">You Need A Nickname!</string>
+    <string name="err_empty_nickname2">NickName unProvided!</string>
     <string name="err_emptycomfirm_pwd">Input Password Again!</string>
     <string name="err_emptycomfirm_pwd_error">Confirmd Error Password!</string>
     <string name="err_update_apk_msg">Errors: Get Version Message!</string>
     <string name="err_download_update_apk">Get Apk of The New Versoin Failed!</string>
     <string name="err_save_apk_msg">Errors:APK Save Failed!</string>
+    <string name="text_sth">some text..</string>
+
     <string name="no_network">No Network Service!</string>
+    <string name="msg_has_send">Your Message Has Send!</string>
     <string name="go_open">Go Open</string>
     <string name="register_user_ok">Register Success!</string>
     <string name="register_user_failed">Register Failed!</string>
@@ -54,4 +64,6 @@
     <string name="version_update">Verion:</string>
     <string name="msg_marry_choose_to_update">98% Users Choose Update the New Version!</string>
     <string name="btn_dailog_update_now">Update Now!</string>
+    <string name="btn_chat">Chat</string>
+    <string name="contentdiscription_show_menu">show menu in left</string>
 </resources>

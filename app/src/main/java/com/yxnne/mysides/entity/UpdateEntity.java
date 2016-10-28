@@ -51,9 +51,9 @@ public class UpdateEntity implements Serializable{
 
     @Override
     public String toString() {
-        return "status : "+status+"/n"
-                +"version : "+version+"/n"
-                + "changeLog : "+changeLog+"/n"
-                +"apkUrl : "+apkUrl+"/n";
+        return "status : "+status+"\n"
+                +"version : "+version+"\n"
+                + "changeLog : "+changeLog+"\n"
+                +"apkUrl : "+apkUrl+"\n";
     }
 }

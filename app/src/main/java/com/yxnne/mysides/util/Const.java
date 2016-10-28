@@ -8,8 +8,11 @@ import android.os.Environment;
  */
 
 public class Const {
-
+    /*Actions*/
     public static final String ACTION_LOGIN_RESAULT = "com.yxnne.myside.login";
+    public static final String ACTION_SEND_ADD_FRIEND = "com.yxnne.myside.ADD_FRIEND";
+    public static final String ACTION_UPDATE_MY_MSG ="com.yxnne.myside.UPDATE_MY_MSG";
+
     public static final String STATUS_KEY = "key_status";
 
     /*int --- 登录相关的业务常量 01*/
