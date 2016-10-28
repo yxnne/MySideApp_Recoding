@@ -31,6 +31,7 @@ dependencies {
     // compile 'org.holoeverywhere:addon-slidingmenu:1.5.0'
     compile project(':sliding_menu')
     compile files('libs/android-async-http-1.4.4.jar')
+    compile files('libs/universal-image-loader-1.9.2_sources.jar')
 }
 repositories{
     flatDir{

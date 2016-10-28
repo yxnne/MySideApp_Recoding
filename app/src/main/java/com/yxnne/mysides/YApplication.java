@@ -3,12 +3,12 @@ package com.yxnne.mysides;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
-import android.content.res.XmlResourceParser;
-
 import com.loopj.android.http.AsyncHttpClient;
+import com.yxnne.mysides.entity.OpenFireServerConfig;
+import com.yxnne.mysides.entity.TomcatServerConfig;
 import com.yxnne.mysides.util.Const;
+import com.yxnne.mysides.util.ReadConfigUtil;
 import com.yxnne.mysides.util.log.LogGenerator;
-
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.PacketInterceptor;
 import org.jivesoftware.smack.PacketListener;
@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 public class YApplication extends Application {
     /*链接openfire的相关参数*/
-    private String serviceName;
-    private int port;
-    private String ip;
+    private OpenFireServerConfig openFireConfig;
+    private TomcatServerConfig tomcatConfig;
+
     /*静态实例引用*/
     public static YApplication instance;
     /*开始时间*/
-    private long appStartTime;
+   // private long appStartTime;
     private XMPPConnection xmppConn;
     //当前网络类型
     public static int network_type= Const.TYPE_NETWORK_WIFI;
@@ -44,12 +44,12 @@ public class YApplication extends Application {
     /**
      * 是添加好友的结果 是添加内容
      */
-    public static ArrayList<Object> listMsg = new ArrayList<Object>();
+    public static ArrayList<Object> listMsg = new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        appStartTime = System.currentTimeMillis();
+        //appStartTime = System.currentTimeMillis();
         LogGenerator.getInstance().printMsg("APP Start");
         instance = this;
         readConnectionConfig();
@@ -70,48 +70,59 @@ public class YApplication extends Application {
     }
 
     public String getServiceName() {
-        return serviceName;
+        return openFireConfig.getServiceName();
     }
 
     public XMPPConnection getXMPPConnection() {
         return xmppConn;
     }
 
+    public OpenFireServerConfig getOpenFireConfig() {
+        return openFireConfig;
+    }
+
+    public TomcatServerConfig getTomcatConfig() {
+        return tomcatConfig;
+    }
+
     /**
      * 读取res/xml/connection_config.xml并解析
      */
     private void readConnectionConfig() {
-        try {
-            XmlResourceParser xmlParser =
-                    //这个东西直接返回了XmlResourceParser 对象
-                    this.getResources().getXml(R.xml.connection_config);
-            int eventType = xmlParser.getEventType();
-            while (XmlResourceParser.END_DOCUMENT != eventType) {
-                switch (eventType) {
-                    case XmlResourceParser.START_TAG:
-                        if ("ip".equals(xmlParser.getName())) {
-                            ip = xmlParser.nextText();
-                        } else if ("port".equals(xmlParser.getName())) {
-                            port = Integer.parseInt(xmlParser.nextText());
-
-                        } else if ("serviceName".equals(xmlParser.getName())) {
-                            serviceName = xmlParser.nextText();
-                        }
-                        break;
-                    case XmlResourceParser.END_TAG:
-                        break;
-                    default:
-                        break;
-                }
-                //别忘了
-                eventType = xmlParser.next();
-            }
-            xmlParser.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        LogGenerator.getInstance().printMsg("parsed xml reault is" + ip + "-" + port + "-" + serviceName);
+        openFireConfig = ReadConfigUtil.getOpenFireConfig(this);
+        tomcatConfig = ReadConfigUtil.getTomcatConfig(this);
+//
+//        try {
+//            XmlResourceParser xmlParser =
+//                    //这个东西直接返回了XmlResourceParser 对象
+//                    this.getResources().getXml(R.xml.connection_config);
+//            int eventType = xmlParser.getEventType();
+//            while (XmlResourceParser.END_DOCUMENT != eventType) {
+//                switch (eventType) {
+//                    case XmlResourceParser.START_TAG:
+//                        if ("ip".equals(xmlParser.getName())) {
+//                            ip = xmlParser.nextText();
+//                        } else if ("port".equals(xmlParser.getName())) {
+//                            port = Integer.parseInt(xmlParser.nextText());
+//
+//                        } else if ("serviceName".equals(xmlParser.getName())) {
+//                            serviceName = xmlParser.nextText();
+//                        }
+//                        break;
+//                    case XmlResourceParser.END_TAG:
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                //别忘了
+//                eventType = xmlParser.next();
+//            }
+//            xmlParser.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        LogGenerator.getInstance().printMsg("parsed xml reault is" + ip + "-" + port + "-" + serviceName);
     }
 
     /**
@@ -120,7 +131,9 @@ public class YApplication extends Application {
     private boolean connectedOnce;/*已经连了一次*/
 
     public void connect2OpenfireServer() {
-        if (port == 0 || ip == null || serviceName == null) {
+        if (openFireConfig.getPort() == 0
+                || openFireConfig.getIp() == null
+                || openFireConfig.getServiceName() == null) {
             LogGenerator.getInstance().printError("Parsed config xml has trouble!");
             return;
         }
@@ -128,7 +141,8 @@ public class YApplication extends Application {
             @Override
             public void run() {
                 //第三个参数是服务器名
-                ConnectionConfiguration cf = new ConnectionConfiguration(ip, port, serviceName);
+                ConnectionConfiguration cf = new ConnectionConfiguration(
+                        openFireConfig.getIp(), openFireConfig.getPort(), openFireConfig.getServiceName());
                 //设置安全类型,这个必须要有
                 cf.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
                 //

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     >
 
-    <ImageView
+    <com.de.hdodenhof.CircleImageView
+        app:border_width="0dp"
+        app:border_color="@android:color/black"
         android:layout_marginStart="@dimen/explv_myfriend_group_left_offset"
         android:id="@+id/iv_my_friend_group_icon"
         android:layout_width="wrap_content"
