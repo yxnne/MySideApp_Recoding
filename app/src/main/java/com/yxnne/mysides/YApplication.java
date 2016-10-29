@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Intent;
 import com.loopj.android.http.AsyncHttpClient;
 import com.yxnne.mysides.entity.OpenFireServerConfig;
+import com.yxnne.mysides.entity.PrivateChatEntity;
 import com.yxnne.mysides.entity.TomcatServerConfig;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.ReadConfigUtil;
@@ -14,6 +15,7 @@ import org.jivesoftware.smack.PacketInterceptor;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.RosterPacket;
@@ -173,8 +175,20 @@ public class YApplication extends Application {
             );
             //TODO Test the function add friends
             LogGenerator.getInstance().printMsg("tobe test add friends");
-            updateMyMsg("testUser " + "agree add");
+
+            doAddFriend(packet);
+
+            doPrivateChat(packet);
+            //updateMyMsg("testUser " + "agree add");
             //关于添加好友的判断好像有些问题
+
+        }
+
+        /**
+         * 检查是否是加好友的消息并且处理 ,这里这个功能有问题
+         * @param packet 数据包
+         */
+        private void doAddFriend(Packet packet){
             if (packet instanceof Presence)
             {
                 Presence presence=(Presence) packet;
@@ -183,7 +197,7 @@ public class YApplication extends Application {
                 if (type== Presence.Type.unsubscribe)
                 {
                     LogGenerator.getInstance().printprintLog("添加好友", user+"不同意");
-
+                    updateMyMsg("testUser " + "agree add");
                 }
             }
 
@@ -202,6 +216,37 @@ public class YApplication extends Application {
                     {
                         LogGenerator.getInstance().printprintLog("添加好友", user+"不同意");
                     }
+                }
+            }
+        }
+
+        /**
+         * 检查是否是私聊消息并处理
+         * @param packet 数据包
+         */
+        private void doPrivateChat(Packet packet) {
+            if (packet instanceof Message)
+            {
+                Message message = (Message) packet;
+                Message.Type type = message.getType();
+                //判断是不是私聊
+                if (type==Message.Type.chat)
+                {
+                    //a@admin:aaaaa，这是发送消息的格式 不过不在这里监听
+                    //回复消息的形式，例如
+                    //kobe@115.159.189.43/Spark 2.6.3:ssdsds
+                    //kobe@115.159.189.43 这个是好友用户名，使用软件/Spark 2.6.3
+                    //ssdsds 这个是内容
+                    String from = message.getFrom();
+                    if (from.contains("/"))
+                    {
+                        from = from.substring(0, from.indexOf("/"));
+                    }
+                    PrivateChatEntity.addMessage(message, from);
+                    LogGenerator.getInstance().printprintLog("Message----->",message.toString());
+                    //发广播通知activity显示
+                    Intent intent = new Intent(Const.ACTION_SEND_PRIVATE_CHAT_MSG);
+                    YApplication.instance.sendBroadcast(intent);
                 }
             }
         }

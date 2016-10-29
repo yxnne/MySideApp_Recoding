@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.yxnne.mysides.YApplication;
+import com.yxnne.mysides.entity.PrivateChatEntity;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.log.LogGenerator;
 
@@ -30,6 +31,8 @@ public class PrivateChatBizAsyncTask extends AsyncTask<String,Integer,Void>{
             message.setType(Message.Type.chat);
             message.setFrom(YApplication.currentUser);
             YApplication.instance.getXMPPConnection().sendPacket(message);
+            //添加记录消息
+            PrivateChatEntity.addMessage(message, params);
         } catch (Exception e) {
             LogGenerator.getInstance().printError(e);
         }finally {
