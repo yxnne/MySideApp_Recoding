@@ -14,6 +14,7 @@ import com.yxnne.mysides.util.log.LogGenerator;
  */
 
 public class ReadConfigUtil {
+
     public static OpenFireServerConfig getOpenFireConfig(Context context){
         String ip = "";
         int port = 0;

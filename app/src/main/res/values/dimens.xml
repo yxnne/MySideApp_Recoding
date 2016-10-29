@@ -10,4 +10,7 @@
     <dimen name="popup_window_button_right_margin">16dp</dimen>
     <dimen name="explv_myfriend_group_left_offset">40dp</dimen>
     <dimen name="explv_myfriend_friend_left_offset">60dp</dimen>
+    <dimen name="listview_icon_width">40dp</dimen>
+    <dimen name="listview_icon_height">40dp</dimen>
+    <dimen name="listview_icon_margin">4dp</dimen>
 </resources>

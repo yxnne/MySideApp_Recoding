@@ -14,5 +14,12 @@
     <style name="context_text" parent="title_text_style">
         <item name="android:textColor">@android:color/black</item>
     </style>
+    <style name="imageview_myfriend_style" parent="AppTheme">
+        <item name="android:layout_width">@dimen/listview_icon_width</item>
+        <item name="android:layout_height">@dimen/listview_icon_height</item>
+        <item name="android:layout_marginTop">@dimen/listview_icon_margin</item>
+        <item name="android:layout_marginEnd">@dimen/listview_icon_margin</item>
+        <item name="android:layout_marginBottom">@dimen/listview_icon_margin</item>
+    </style>
 
 </resources>

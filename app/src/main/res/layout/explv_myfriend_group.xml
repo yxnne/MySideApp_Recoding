@@ -8,12 +8,11 @@
     >
 
     <com.de.hdodenhof.CircleImageView
-        app:border_width="0dp"
-        app:border_color="@android:color/black"
+        style="@style/imageview_myfriend_style"
+        app:border_width="1dp"
+        app:border_color="@android:color/white"
         android:layout_marginStart="@dimen/explv_myfriend_group_left_offset"
         android:id="@+id/iv_my_friend_group_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher" />
 
     <TextView

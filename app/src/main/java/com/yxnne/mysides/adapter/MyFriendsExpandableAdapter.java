@@ -8,10 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yxnne.mysides.R;
+import com.yxnne.mysides.YApplication;
+import com.yxnne.mysides.util.Const;
+import com.yxnne.mysides.util.ImageLoaderUtil;
 
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -96,6 +100,21 @@ public class MyFriendsExpandableAdapter extends BaseExpandableListAdapter {
         RosterGroup rosterGroup = (RosterGroup) getGroup(groupPosition);
         String groupName = rosterGroup.getName();
         groupViewHolder.tvGroupName.setText(groupName);
+        //下载图片
+        String imageUrl = YApplication.tomcatBaseAdress+"/MyfriendIcon/icon_group_nba.png";
+        //判断sdcard上有没有这个图，有从sdcard上取
+        //没有再从网上取
+        String imageFileName=imageUrl.substring(imageUrl.lastIndexOf("/")+1);
+        File file=new File(Const.IMAGE_PATH,imageFileName);
+
+        if (file.exists())
+        {
+            ImageLoaderUtil.displaySdcardImage(context, Const.IMAGE_PATH+"/"+imageFileName, groupViewHolder.ivIcon);
+        }else
+        {
+            ImageLoaderUtil.displayNetworkImage(context, imageUrl,  groupViewHolder.ivIcon);
+        }
+
         return convertView;
     }
 
@@ -119,6 +138,20 @@ public class MyFriendsExpandableAdapter extends BaseExpandableListAdapter {
                 childPosition);
         String friendName = rosterEntry.getName();
         childViewHolder.tvFriendName.setText(friendName);
+        String imageUrl= YApplication.tomcatBaseAdress+"/MyfriendIcon/icon_a.png";
+        //判断sdcard上有没有这个图，有从sdcard上取
+        //没有再从网上取
+        String imageFileName=imageUrl.substring(imageUrl.lastIndexOf("/")+1);
+        File file=new File(Const.IMAGE_PATH,imageFileName);
+
+        if (file.exists())
+        {
+            ImageLoaderUtil.displaySdcardImage(context, Const.IMAGE_PATH+"/"+imageFileName,
+                    childViewHolder.ivIcon);
+        }else
+        {
+            ImageLoaderUtil.displayNetworkImage(context, imageUrl, childViewHolder.ivIcon);
+        }
         return convertView;
     }
 

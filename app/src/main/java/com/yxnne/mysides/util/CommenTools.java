@@ -115,6 +115,7 @@ public class CommenTools{
                 try {
                     if (fileOutputStream != null) {
                         fileOutputStream.close();
+                        LogGenerator.getInstance().printMsg("write to sdcard OK!");
                     }
                 } catch (Exception e2) {
                     LogGenerator.getInstance().printError(e2);

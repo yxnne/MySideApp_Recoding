@@ -78,7 +78,7 @@ public class UpdateBiz {
             //企业用ASyncHttpClient多些，
             //AsyncHttpClient就异步http联网框架
             //server address http://115.159.189.43/
-            String url="http://192.168.31.145:8080/MysideServer/servlet/ApkUpdateServlet";
+            String url=YApplication.tomcatBaseAdress+"servlet/ApkUpdateServlet";
             LogGenerator.getInstance().printMsg(url);
             YApplication.asyncHttpClient.get(url, new AsyncHttpResponseHandler() {
                 @Override
@@ -121,6 +121,7 @@ public class UpdateBiz {
                 }
             });
         } catch (Exception e) {
+            LogGenerator.getInstance().printError(e);
         }
 
     }
