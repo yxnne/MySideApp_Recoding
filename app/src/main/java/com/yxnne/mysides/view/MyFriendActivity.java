@@ -15,8 +15,11 @@ import android.widget.TextView;
 import com.yxnne.mysides.R;
 import com.yxnne.mysides.YApplication;
 import com.yxnne.mysides.adapter.MyFriendsExpandableAdapter;
+import com.yxnne.mysides.biz.PrivateChatBizAsyncTask;
+import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.log.LogGenerator;
 import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
 import org.jivesoftware.smack.XMPPConnection;
 import java.util.ArrayList;
@@ -57,6 +60,7 @@ public class MyFriendActivity extends BaseActivity {
             expAdapter = new MyFriendsExpandableAdapter(this, listGroup);
             expLvMyFriend.setAdapter(expAdapter);
         }else{
+            LogGenerator.getInstance().printError("no connection,when get friend ");
             //TODO 通知用户，链接失败
         }
 
@@ -73,6 +77,7 @@ public class MyFriendActivity extends BaseActivity {
     }
 
     private void addListner() {
+        // btn add frinend listner
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +114,36 @@ public class MyFriendActivity extends BaseActivity {
                 } catch (Exception e) {
                     LogGenerator.getInstance().printError(e);
                 }
+
+            }
+        });
+
+        //expandableListview listner
+        expLvMyFriend.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                    LogGenerator.getInstance().printMsg("explv click!");
+                try {
+                    RosterEntry rosterEntry =
+                            (RosterEntry) expAdapter.getChild(groupPosition, childPosition);
+                    String friendUser=rosterEntry.getUser();
+//
+//                    for(int i=0;i<100;i++)
+//                    {
+////                      PrivateChatBiz privateChatBiz = new PrivateChatBiz();
+////                      privateChatBiz.sendMessage(friendUser, "你好"+i);
+//                        //使用异步任务类更好
+//                        PrivateChatBizAsyncTask privateChatTask = new PrivateChatBizAsyncTask();
+//                        privateChatTask.execute(friendUser, "你好,你好" + i);
+//                    }
+                    Intent intent = new Intent(MyFriendActivity.this,
+                            PrivateChatActivity.class);
+                    intent.putExtra(Const.STATUS_KEY, friendUser);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    LogGenerator.getInstance().printError(e);
+                }
+                return false;
 
             }
         });

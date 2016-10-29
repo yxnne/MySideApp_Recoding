@@ -28,7 +28,8 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <service android:name=".biz.AddFriendService"></service>
+
+        <service android:name=".biz.AddFriendService" />
 
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.TopicActivity" />
@@ -37,7 +38,8 @@
         <activity android:name=".view.NearbyTopicActivity" />
         <activity android:name=".view.SettingActivity" />
         <activity android:name=".view.MyMsgActivity" />
-        <activity android:name=".view.AddFriendActivity"></activity>
+        <activity android:name=".view.AddFriendActivity" />
+        <activity android:name=".view.PrivateChatActivity"></activity>
     </application>
 
 </manifest>

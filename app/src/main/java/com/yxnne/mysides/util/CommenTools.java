@@ -40,8 +40,6 @@ public class CommenTools{
         }
     }
 
-
-
     /**
      * get App versionCode 升级用
      * @param context 上下文

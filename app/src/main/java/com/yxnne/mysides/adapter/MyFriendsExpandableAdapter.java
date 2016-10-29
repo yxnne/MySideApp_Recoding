@@ -164,9 +164,10 @@ public class MyFriendsExpandableAdapter extends BaseExpandableListAdapter {
         ImageView ivIcon;
         TextView tvFriendName;
     }
+    //返回 true child才能点击的了
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
 

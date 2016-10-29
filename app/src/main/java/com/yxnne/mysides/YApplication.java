@@ -33,7 +33,7 @@ public class YApplication extends Application {
     /*静态实例引用*/
     public static YApplication instance;
     /*开始时间*/
-   // private long appStartTime;
+    // private long appStartTime;
     private XMPPConnection xmppConn;
     //当前网络类型
     public static int network_type= Const.TYPE_NETWORK_WIFI;
@@ -41,6 +41,8 @@ public class YApplication extends Application {
     public static ArrayList<Activity> activities = new ArrayList<>();
     //异步http任务类
     public static AsyncHttpClient asyncHttpClient=new AsyncHttpClient();
+    //当前用户
+    public static String currentUser;
     /**
      * 是添加好友的结果 是添加内容
      */
@@ -76,11 +78,11 @@ public class YApplication extends Application {
     public XMPPConnection getXMPPConnection() {
         return xmppConn;
     }
-
+    //暂时未用到
     public OpenFireServerConfig getOpenFireConfig() {
         return openFireConfig;
     }
-
+    //暂时未用到
     public TomcatServerConfig getTomcatConfig() {
         return tomcatConfig;
     }

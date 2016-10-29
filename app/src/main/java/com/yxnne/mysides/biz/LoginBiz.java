@@ -52,6 +52,8 @@ public class LoginBiz {
                                 .isAuthenticated();
                         if (isLoginSuccess) {
                             loginStatus = Const.STATUS_LOGIN_OK;
+                            //set current user
+                            YApplication.currentUser  =userEntity.getUsername()+"@"+YApplication.instance.getServiceName();
                             LogGenerator.getInstance().printMsg("login is ok");
                         }
                     }
