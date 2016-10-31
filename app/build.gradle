@@ -32,6 +32,8 @@ dependencies {
     compile project(':sliding_menu')
     compile files('libs/android-async-http-1.4.4.jar')
     compile files('libs/universal-image-loader-1.9.2_sources.jar')
+    compile files('libs/GifView.jar')
+    compile 'com.android.support:recyclerview-v7:24.0.0'
 }
 repositories{
     flatDir{

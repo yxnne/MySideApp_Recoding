@@ -37,11 +37,15 @@ public class MyFriendActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_friend);
-        findView();
+        try {
+            findView();
+            addShowMenuBtn();
+            addListner();
+            getFriends();
+        }catch (Exception e){
+            LogGenerator.getInstance().printError(e);
+        }
 
-        addShowMenuBtn();
-        addListner();
-        getFriends();
     }
 
     private void findView() {

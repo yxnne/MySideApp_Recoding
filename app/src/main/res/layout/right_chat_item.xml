@@ -2,16 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="right|center_vertical"
+    android:orientation="horizontal"
+    android:gravity="end|center_vertical"
     >
-
+<!-- android:maxEms="11" 这个属性就是设置它的最大长度 -->
     <TextView
         android:background="@drawable/message_right"
         style="@style/context_text"
         android:id="@+id/tv_text"
+        android:maxEms="11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextViewRight" />
+
+    <ImageView
+        android:id="@+id/iv_myfriend_protrait"
+        style="@style/chat_iv_right_style"
+        android:src="@mipmap/icon_chat_user_portrait"
+        />
 
 </LinearLayout>

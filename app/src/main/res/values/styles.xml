@@ -21,5 +21,17 @@
         <item name="android:layout_marginEnd">@dimen/listview_icon_margin</item>
         <item name="android:layout_marginBottom">@dimen/listview_icon_margin</item>
     </style>
+    <style name="chat_iv_left_style" parent="AppTheme">
+        <item name="android:layout_width">@dimen/imageview_chat_portrait_width</item>
+        <item name="android:layout_height">@dimen/imageview_chat_portrait_height</item>
+        <item name="android:layout_marginStart">@dimen/imageview_chat_portrait_margin</item>
+        <item name="android:layout_marginBottom">@dimen/imageview_chat_portrait_margin_bottom</item>
+    </style>
+    <style name="chat_iv_right_style" parent="AppTheme">
+        <item name="android:layout_width">@dimen/imageview_chat_portrait_width</item>
+        <item name="android:layout_height">@dimen/imageview_chat_portrait_height</item>
+        <item name="android:layout_marginEnd">@dimen/imageview_chat_portrait_margin</item>
+        <item name="android:layout_marginBottom">@dimen/imageview_chat_portrait_margin_bottom</item>
+    </style>
 
 </resources>
