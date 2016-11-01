@@ -9,7 +9,7 @@ import com.yxnne.mysides.entity.PrivateChatEntity;
 import com.yxnne.mysides.entity.TomcatServerConfig;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.ReadConfigUtil;
-import com.yxnne.mysides.util.log.EmojiFaceDataUtil;
+import com.yxnne.mysides.util.EmojiFaceDataUtil;
 import com.yxnne.mysides.util.log.LogGenerator;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.PacketInterceptor;

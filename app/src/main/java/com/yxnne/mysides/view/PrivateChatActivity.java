@@ -5,13 +5,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +32,15 @@ import com.yxnne.mysides.adapter.FaceEmojiAdapter;
 import com.yxnne.mysides.adapter.FaceVpAdapter;
 import com.yxnne.mysides.biz.PrivateChatBizAsyncTask;
 import com.yxnne.mysides.entity.PrivateChatEntity;
+import com.yxnne.mysides.util.chat.ChatCommenUtil;
+import com.yxnne.mysides.util.chat.ChatFaceUtil;
+import com.yxnne.mysides.util.chat.ChatPictureUtil;
 import com.yxnne.mysides.util.Const;
-import com.yxnne.mysides.util.log.EmojiFaceDataUtil;
-import com.yxnne.mysides.util.log.FaceUtil;
+import com.yxnne.mysides.util.EmojiFaceDataUtil;
 import com.yxnne.mysides.util.log.LogGenerator;
 import org.jivesoftware.smack.packet.Message;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -43,7 +49,7 @@ public class PrivateChatActivity extends AppCompatActivity {
     private String friendUser;
     private TextView tvFriendName,tvBack,tvMore;
     private EditText etMsgBody;
-    private Button btnSend,btnFace;
+    private Button btnSend,btnFace,btnPicture;
     private ScrollView scrollView;
     private LinearLayout linearLayout,linearLayoutMore,mDotsLayout,linearLayoutFace;
     //private GridView gvFace;
@@ -75,6 +81,7 @@ public class PrivateChatActivity extends AppCompatActivity {
             inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             findViews();
             addListener();
+
             showPrivateMsgReceiver = new ShowPrivateMsgReceiver();
             this.registerReceiver(showPrivateMsgReceiver,
                     new IntentFilter(Const.ACTION_SEND_PRIVATE_CHAT_MSG));
@@ -100,6 +107,7 @@ public class PrivateChatActivity extends AppCompatActivity {
         linearLayout = (LinearLayout) findViewById(R.id.linearLayoutChatContent);
         linearLayoutMore = (LinearLayout) findViewById(R.id.linearLayoutMore);
         linearLayoutFace = (LinearLayout) findViewById(R.id.linearLayoutface);
+        btnPicture = (Button) findViewById(R.id.btn_private_chat_picture);
 //        gvFace = (GridView) findViewById(R.id.gridView_face);
         ///rvFace = (RecyclerView) findViewById(R.id.rv_face);
         //gv adapter
@@ -136,11 +144,11 @@ public class PrivateChatActivity extends AppCompatActivity {
         rvFace.setAdapter(faceRvAdapter);
     }
     private void configViewPager() {
-        staticFacesList = FaceUtil.initStaticFaces(this);
-        int pagesize = FaceUtil.getPagerCount(staticFacesList.size(),columns,rows);
+        staticFacesList = ChatFaceUtil.initStaticFaces(this);
+        int pagesize = ChatFaceUtil.getPagerCount(staticFacesList.size(),columns,rows);
         // 获取页数
         for (int i = 0; i <pagesize; i++) {
-            views.add(FaceUtil.viewPagerItem(this, i, staticFacesList,columns, rows, etMsgBody));
+            views.add(ChatFaceUtil.viewPagerItem(this, i, staticFacesList,columns, rows, etMsgBody));
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(16, 16);
             mDotsLayout.addView(dotsItem(i), params);
         }
@@ -194,8 +202,9 @@ public class PrivateChatActivity extends AppCompatActivity {
                     String body = etMsgBody.getText().toString();
                     etMsgBody.getText().clear();
 
-                    PrivateChatBizAsyncTask privateChatTask = new PrivateChatBizAsyncTask();
-                    privateChatTask.execute(friendUser, body);
+//                    PrivateChatBizAsyncTask privateChatTask = new PrivateChatBizAsyncTask();
+//                    privateChatTask.execute(friendUser, body);
+                    sendMessage(body);
                 } catch (Exception e) {
                     LogGenerator.getInstance().printError(e);
                 }
@@ -242,19 +251,61 @@ public class PrivateChatActivity extends AppCompatActivity {
                 }
             }
         });
-        scrollView.setOnClickListener(new View.OnClickListener() {
+
+        btnPicture.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                if(linearLayoutFace.getVisibility() == View.VISIBLE){
-                    linearLayoutFace.setVisibility(View.GONE);
-                }
-                if(linearLayoutMore.getVisibility() == View.VISIBLE){
-                    linearLayoutMore.setVisibility(View.GONE);
-                }
+                // 打开系统图库
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                // 启动一个activity,我们通过onActivityResult得到数据
+                startActivityForResult(intent, 0);
+
             }
         });
+//        scrollView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(linearLayoutFace.getVisibility() == View.VISIBLE){
+//                    linearLayoutFace.setVisibility(View.GONE);
+//                }
+//                if(linearLayoutMore.getVisibility() == View.VISIBLE){
+//                    linearLayoutMore.setVisibility(View.GONE);
+//                }
+//            }
+//        });
 
     }
+    private void sendMessage(String body) {
+
+        PrivateChatBizAsyncTask privateChatTask = new PrivateChatBizAsyncTask();
+        privateChatTask.execute(friendUser, body);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode ==  this.RESULT_OK){
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+                        getContentResolver(), data.getData());
+                // bitmap转成byte[]
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 10, byteArrayOutputStream);
+
+                byte[] imageData = byteArrayOutputStream.toByteArray();
+
+                String body = ChatPictureUtil.addImageTag(imageData);
+                sendMessage(body);
+
+            } catch (Exception e) {
+                LogGenerator.getInstance().printError(e);
+            }
+        }
+    }
+
     /**
      * 隐藏软键盘
      */
@@ -287,14 +338,36 @@ public class PrivateChatActivity extends AppCompatActivity {
                         // 好友说的用left.xml来显示
                         view = View.inflate(context, R.layout.left_chat_item, null);
                     }
-
                     // 把right.xml或left.xml放到linearLayout中
                     linearLayout.addView(view);
-                    // 给textview设置显示的聊天内容
-                    TextView tvText = (TextView) view
-                            .findViewById(R.id.tv_text);
-                    tvText.setText(body);
+                    //这里判断类型 图片 ，语音，地图，
+                    // 另，表情按文字处理
 
+                    int type = ChatCommenUtil.getType(body);
+                    LogGenerator.getInstance().printprintLog("yxnne--->type = " +type,body);
+                    //图片
+                    if (type == ChatCommenUtil.TYPE_IMAGE) {
+                        LogGenerator.getInstance().printMsg("picture");
+                        Bitmap bitmap = ChatPictureUtil.getImage(body);
+                        ImageView imageView = (ImageView) view
+                                .findViewById(R.id.iv_image);
+                        imageView.setVisibility(View.VISIBLE);
+                        imageView.setImageBitmap(bitmap);
+                    }else if(type == ChatCommenUtil.TYPE_AUDIO){//语音
+
+                    }else if(type == ChatCommenUtil.TYPE_MAP){//地图
+
+                    }else{//文本
+                        // 给textview设置显示的聊天内容
+                        TextView tvText = (TextView) view
+                                .findViewById(R.id.tv_text);
+                        //这里body要处理下，有表情啥的
+                        SpannableStringBuilder sb = ChatFaceUtil.parse(
+                                PrivateChatActivity.this,tvText,body);// 对内容做处理
+                        //hodler.fromText.setText(sb);
+                        tvText.setVisibility(View.VISIBLE);
+                        tvText.setText(sb);
+                    }
                     handler.post(new Runnable() {//这个执行的时间靠后些
                         @Override
                         public void run() {

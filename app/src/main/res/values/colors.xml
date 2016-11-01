@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="logoBackground">#99CC33</color>
     <color name="contentBackground">#FFEAE7EA</color>
+    <color name="transparent">#00000000</color>
 </resources>
