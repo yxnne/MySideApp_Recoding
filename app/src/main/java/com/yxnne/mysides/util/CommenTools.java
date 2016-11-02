@@ -9,7 +9,9 @@ import android.os.Environment;
 import com.yxnne.mysides.util.log.LogGenerator;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 通用工具类
@@ -120,6 +122,35 @@ public class CommenTools{
                 }
             }
         }
+    }
+
+    /**
+     * 读取SD卡
+     * @param filePathName 文件名
+     * @return byte数组
+     */
+    public static byte[] readSdcard(String filePathName) {
+        FileInputStream fileInputStream = null;
+        byte[] data = null;
+        try {
+            fileInputStream = new FileInputStream(filePathName);
+            int size = fileInputStream.available();
+            data = new byte[size];
+            fileInputStream.read(data);
+        } catch (Exception e) {
+            LogGenerator.getInstance().printError(e);
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    LogGenerator.getInstance().printError(e);
+
+                }
+            }
+
+        }
+        return data;
     }
 }
 

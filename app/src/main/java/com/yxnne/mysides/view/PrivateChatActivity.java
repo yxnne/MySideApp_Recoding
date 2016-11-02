@@ -350,9 +350,19 @@ public class PrivateChatActivity extends AppCompatActivity {
                     int type = ChatCommenUtil.getType(body);
                     LogGenerator.getInstance().printprintLog("yxnne--->type = " +type,body);
                     //图片
-                    if (type == ChatCommenUtil.TYPE_IMAGE) {
-                        LogGenerator.getInstance().printMsg("picture");
+                    if(type == ChatCommenUtil.TYPE_IMAGE){
+                        LogGenerator.getInstance().printMsg("TYPE_IMAGE");
                         Bitmap bitmap = ChatPictureUtil.getImage(body);
+                        ImageView imageView = (ImageView) view
+                                .findViewById(R.id.iv_image);
+                        imageView.setVisibility(View.VISIBLE);
+                        imageView.setImageBitmap(bitmap);
+                    }else if(type == ChatCommenUtil.TYPE_NETWORK_IMAGE){
+                        LogGenerator.getInstance().printMsg("network picture");
+                        ChatPictureUtil.saveImageToSdcard(message);
+                    }else if(type == ChatCommenUtil.TYPE_SDCARD_IMAGE){
+                        LogGenerator.getInstance().printMsg("sdcard picture");
+                        Bitmap bitmap = ChatPictureUtil.getSdcardImage(body);
                         ImageView imageView = (ImageView) view
                                 .findViewById(R.id.iv_image);
                         imageView.setVisibility(View.VISIBLE);
@@ -432,7 +442,7 @@ public class PrivateChatActivity extends AppCompatActivity {
 
         @Override
         public boolean onLongClick(View v) {
-            //Toast.makeText(PrivateChatActivity.this,"test LongCLick",Toast.LENGTH_SHORT).show();
+            Toast.makeText(PrivateChatActivity.this,"test LongCLick",Toast.LENGTH_SHORT).show();
             //震动下
 
             //弹对话框

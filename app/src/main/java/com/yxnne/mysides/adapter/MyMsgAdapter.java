@@ -99,7 +99,8 @@ public class MyMsgAdapter extends BaseAdapter {
 
         if (data instanceof Message) {
             // 聊天内容
-            viewHolder.tvChatContent.setText("某个人说");
+            String str = ((Message) data).getFrom()+" say :";
+            viewHolder.tvChatContent.setText(str);
         }
 
         return convertView;

@@ -11,6 +11,8 @@ import com.yxnne.mysides.entity.TomcatServerConfig;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.ReadConfigUtil;
 import com.yxnne.mysides.util.EmojiFaceDataUtil;
+import com.yxnne.mysides.util.chat.ChatCommenUtil;
+import com.yxnne.mysides.util.chat.ChatPictureUtil;
 import com.yxnne.mysides.util.log.LogGenerator;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.PacketInterceptor;
@@ -247,13 +249,27 @@ public class YApplication extends Application {
                     PrivateChatEntity.addMessage(message, from);
                     LogGenerator.getInstance().printprintLog("Message----->",message.toString());
                     //消息插入数据库
-                    MessageDAO messageDAO = new MessageDAO(instance);
-                    messageDAO.insert(message);
+
+                    //ChatPictureUtil.saveImageToSdcard(message);
+                    //这里判断下纯文本 直接插入数据库
+
+                    int bodyType = ChatCommenUtil.getType(message.getBody());
+                    //insertMsg2DB(bodyType,message);
+
                     //发广播通知activity显示
                     Intent intent = new Intent(Const.ACTION_SEND_PRIVATE_CHAT_MSG);
                     YApplication.instance.sendBroadcast(intent);
                 }
             }
+        }
+
+        private void insertMsg2DB(int bodyType ,Message message) {
+            Message msg = message;
+            if(ChatCommenUtil.TYPE_IMAGE == bodyType){
+                msg.setBody("image");
+            }
+            MessageDAO messageDAO = new MessageDAO(instance);
+            messageDAO.insert(msg);
         }
 
         /**
