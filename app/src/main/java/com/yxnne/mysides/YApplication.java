@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import com.loopj.android.http.AsyncHttpClient;
+import com.yxnne.mysides.dao.MessageDAO;
 import com.yxnne.mysides.entity.OpenFireServerConfig;
 import com.yxnne.mysides.entity.PrivateChatEntity;
 import com.yxnne.mysides.entity.TomcatServerConfig;
@@ -245,6 +246,9 @@ public class YApplication extends Application {
                     }
                     PrivateChatEntity.addMessage(message, from);
                     LogGenerator.getInstance().printprintLog("Message----->",message.toString());
+                    //消息插入数据库
+                    MessageDAO messageDAO = new MessageDAO(instance);
+                    messageDAO.insert(message);
                     //发广播通知activity显示
                     Intent intent = new Intent(Const.ACTION_SEND_PRIVATE_CHAT_MSG);
                     YApplication.instance.sendBroadcast(intent);

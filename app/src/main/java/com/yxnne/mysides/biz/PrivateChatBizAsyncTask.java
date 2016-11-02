@@ -1,9 +1,11 @@
 package com.yxnne.mysides.biz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.yxnne.mysides.YApplication;
+import com.yxnne.mysides.dao.MessageDAO;
 import com.yxnne.mysides.entity.PrivateChatEntity;
 import com.yxnne.mysides.util.Const;
 import com.yxnne.mysides.util.log.LogGenerator;
@@ -17,7 +19,11 @@ import org.jivesoftware.smack.packet.Message;
  */
 
 public class PrivateChatBizAsyncTask extends AsyncTask<String,Integer,Void>{
+    Context context;
 
+    public PrivateChatBizAsyncTask(Context context) {
+        this.context = context;
+    }
     @Override
     protected Void doInBackground(String... params) {
 
@@ -30,6 +36,9 @@ public class PrivateChatBizAsyncTask extends AsyncTask<String,Integer,Void>{
             message.setBody(params[1]);
             message.setType(Message.Type.chat);
             message.setFrom(YApplication.currentUser);
+            //消息插入数据库
+            MessageDAO messageDAO = new MessageDAO(context);
+            messageDAO.insert(message);
             YApplication.instance.getXMPPConnection().sendPacket(message);
             //添加记录消息
             PrivateChatEntity.addMessage(message, params);

@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.yxnne.mysides.R;
 import com.yxnne.mysides.YApplication;
 import com.yxnne.mysides.adapter.FaceEmojiAdapter;
@@ -279,7 +281,7 @@ public class PrivateChatActivity extends AppCompatActivity {
     }
     private void sendMessage(String body) {
 
-        PrivateChatBizAsyncTask privateChatTask = new PrivateChatBizAsyncTask();
+        PrivateChatBizAsyncTask privateChatTask = new PrivateChatBizAsyncTask(this);
         privateChatTask.execute(friendUser, body);
     }
 
@@ -287,7 +289,7 @@ public class PrivateChatActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode ==  this.RESULT_OK){
+        if(resultCode ==  RESULT_OK){
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(
                         getContentResolver(), data.getData());
@@ -340,6 +342,8 @@ public class PrivateChatActivity extends AppCompatActivity {
                     }
                     // 把right.xml或left.xml放到linearLayout中
                     linearLayout.addView(view);
+                    //给View加上长按监听
+                    view.setOnLongClickListener(new OnLongClickChatViewListner());
                     //这里判断类型 图片 ，语音，地图，
                     // 另，表情按文字处理
 
@@ -420,4 +424,23 @@ public class PrivateChatActivity extends AppCompatActivity {
 //        }
         }
     }
+
+    /**
+     * 给对话气泡用的 长按监听
+     */
+    class OnLongClickChatViewListner implements View.OnLongClickListener{
+
+        @Override
+        public boolean onLongClick(View v) {
+            //Toast.makeText(PrivateChatActivity.this,"test LongCLick",Toast.LENGTH_SHORT).show();
+            //震动下
+
+            //弹对话框
+
+
+
+            return true;
+        }
+    }
+
 }
